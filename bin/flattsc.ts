@@ -119,25 +119,34 @@ if (a['conform-includes']) {
     args.push(...['--conform-includes', a['conform-includes']]);
 }
 
-args.push(...(
-    a._
-        .map((f) => {
-            if (typeof f !== 'string') {
-                f = f.toString();
-            }
+const filesForFlatc = a._
+    .map((f) => {
+        if (typeof f !== 'string') {
+            f = f.toString();
+        }
 
-            if (!fs.existsSync(f)) {
-                logAndExit(`Invalid command or file ${f} not found`);
-            }
+        if (!fs.existsSync(f)) {
+            logAndExit(`Invalid command or file ${f} not found`);
+        }
 
-            if (path.extname(f) === '.bfbs') {
-                return '';
-            }
+        if (path.extname(f) === '.bfbs') {
+            return '';
+        }
 
-            return f;
-        })
-        .filter((f) => !!f)
-));
+        return f;
+    })
+    .filter((f) => !!f)
+;
+
+args.push(...filesForFlatc);
+
+if (filesForFlatc.length) {
+    const flatc = execa.sync('flatc', args);
+
+    if (flatc.failed) {
+        logAndExit(`flatc failed: ${flatc.stderr}`);
+    }
+}
 
 const schemaFiles = a._.map((f) => {
     if (typeof f !== 'string') {
@@ -155,14 +164,6 @@ const schemaFiles = a._.map((f) => {
 
 if (a.mkdir) {
     fs.mkdirSync(outputPath, {recursive: true});
-}
-
-if (schemaFiles.length) {
-    const flatc = execa.sync('flatc', args);
-
-    if (flatc.failed) {
-        logAndExit(`flatc failed: ${flatc.stderr}`);
-    }
 }
 
 const tsFbOptions: Options = {
@@ -190,7 +191,7 @@ schemaFiles.forEach((f) => {
         fs.writeFileSync(filename, code);
     }
 
-    if (a['remove-tsc-files']) {
+    if (a['remove-tsc-files'] && filesForFlatc.includes(path.basename(f, '.bfbs') + '.fbs')) {
         fs.unlinkSync(f);
     }
 });
