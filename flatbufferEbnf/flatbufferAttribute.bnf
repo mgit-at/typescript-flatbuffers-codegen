@@ -1,0 +1,7 @@
+SCHEMA ::= ATTRIBUTE_DECL
+
+ATTRIBUTE_DECL ::= 'attribute' WS '"' TS_FB_GEN_ATTRIBUTE '"' ';' NL
+TS_FB_GEN_ATTRIBUTE ::= 'proxy' | 'uid' | 'preserveLong'
+
+WS ::= ' '
+NL ::= '\n'

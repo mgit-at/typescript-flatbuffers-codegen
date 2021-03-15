@@ -1,0 +1,52 @@
+{
+  "name": "@mgit-at/typescript-flatbuffers-codegen",
+  "version": "0.0.1",
+  "author": "Patrick Pichler <ppichler@mgit.at> (https://github.com/aveexy)",
+  "homepage": "https://github.com/mgit-at/typescript-flatbuffers-codegen",
+  "license": "Apache-2.0",
+  "types": "dist/lib/fblib.d.ts",
+  "main": "dist/lib/fblib.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mgit-at/typescript-flatbuffers-codegen.git"
+  },
+  "bin": {
+    "flattsc": "dist/bin/flattsc.js"
+  },
+  "scripts": {
+    "flattsc": "ts-node ./bin/flattsc.ts",
+    "build_ebnf_parser": "pegjs src/ebnf/ebnf.pegjs",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "build": "tsc",
+    "prepare": "tsc"
+  },
+  "dependencies": {
+    "deep-equal": "^2.0.5",
+    "ebnf": "^1.9.0",
+    "ebnf-parser": "^0.1.10",
+    "flatbuffers": "^1.12.0",
+    "pegjs": "^0.10.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.5",
+    "yargs": "^16.2.0"
+  },
+  "devDependencies": {
+    "@types/deep-equal": "^1.0.1",
+    "@types/flatbuffers": "^1.10.0",
+    "@types/jest": "^26.0.20",
+    "@types/md5": "^2.3.0",
+    "@types/node": "^14.14.31",
+    "@types/yargs": "^16.0.0",
+    "jest": "^26.6.3",
+    "md5": "^2.3.0",
+    "ts-jest": "^26.5.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/mgit-at/typescript-flatbuffers-codegen/issues"
+  },
+  "description": ""
+}
