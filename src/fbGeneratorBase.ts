@@ -146,7 +146,7 @@ export abstract class FbGeneratorBase {
     }
 
     protected createImports() {
-        this.nodes.push(createImportEverythingAs('@mgit-at/typescript-flatbuffer-codegen', this.n.fbLibImport));
+        this.nodes.push(createImportEverythingAs('@mgit-at/typescript-flatbuffers-codegen', this.n.fbLibImport));
     }
 
     protected convertType(f: fbR.Field, nullable: boolean = true): ts.TypeNode {
