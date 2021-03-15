@@ -1,6 +1,6 @@
 {
   "name": "@mgit-at/typescript-flatbuffers-codegen",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Patrick Pichler <ppichler@mgit.at> (https://github.com/aveexy)",
   "homepage": "https://github.com/mgit-at/typescript-flatbuffers-codegen",
   "license": "Apache-2.0",
