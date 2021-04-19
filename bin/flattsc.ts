@@ -62,6 +62,11 @@ const typescriptFlatbuffersCompilerOptions = yargsOptions({
         type: 'boolean',
         description: 'Create output directory',
         default: false
+    },
+    'postfix-reserved': {
+        type: 'boolean',
+        description: `Postfix reserved table/struct/enum names with _`,
+        default: false
     }
 });
 
@@ -169,7 +174,8 @@ if (a.mkdir) {
 const tsFbOptions: Options = {
     buildFbParser: !!a['build-parser'],
     buildObjectifyFunc: !!a['build-objectify-func'],
-    buildFbGenerator: !!a['build-generator']
+    buildFbGenerator: !!a['build-generator'],
+    postfixReserved: !!a['postfix-reserved']
 };
 
 const suffix = a['filename-suffix'];

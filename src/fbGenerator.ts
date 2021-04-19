@@ -57,6 +57,7 @@ export interface Options {
     buildFbParser?: boolean;
     buildFbGenerator?: boolean;
     buildObjectifyFunc?: boolean;
+    postfixReserved?: boolean;
 }
 
 interface FlatbufferAssignment {
@@ -70,11 +71,8 @@ const objectLimitWithoutFile = 1000;
 export class FbGenerator extends FbGeneratorBase {
     private targetFileName?: string;
 
-    private readonly options: Options;
-
     constructor(schema: fbR.Schema, options: Options) {
-        super(schema);
-        this.options = options;
+        super(schema, options);
     }
 
     generate(targetFileName?: string) {
