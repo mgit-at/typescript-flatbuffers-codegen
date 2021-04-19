@@ -1,4 +1,4 @@
-# Typescript Flatbuffers Compiler (flattsc)
+# Typescript Flatbuffers Codegen (flattsc)
 
 This package aims to simplify the use of flatbuffers in javascript/typescript.
 
@@ -8,11 +8,11 @@ This package aims to simplify the use of flatbuffers in javascript/typescript.
 
 ## Installation
 
-`yarn add @mgit-at/typescript-flatbuffers-compiler`
+`yarn add @mgit-at/typescript-flatbuffers-codegen`
 
 or
 
-`npm install @mgit-at/typescript-flatbuffers-compiler`
+`npm install @mgit-at/typescript-flatbuffers-codegen`
 
 ## Generator usage
 
@@ -51,13 +51,13 @@ console.log(data.name.lastname);
 
 ## Performance
 
-Typescript Flattbuffers Compiler brings multiple performance and memory benefits.
+Typescript Flatbuffers Codegen brings multiple performance and memory benefits.
 
 Especially in use-cases where all or nearly all the data in the flatbuffers objects get parsed anyway, flattsc brings improvements in parsing time and memory usage.
 
 ## Features 
 
-Typescript Flatbuffers Compiler adds some unique features to it's generated files, which the default flatbuffer compiler doesn't add:
+Typescript Flatbuffers Codegen adds some unique features to it's generated files, which the default flatbuffer compiler doesn't add:
 
 ### Object API
 
@@ -103,7 +103,6 @@ The amount of initially decoded elements can also be set. This decodes 10:
 table RootTable {
     data: [ExpensiveToDecode] (proxy:10);
 }
-
 ```
 
 ### Unique identifier
