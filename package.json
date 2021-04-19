@@ -48,5 +48,8 @@
   "bugs": {
     "url": "https://github.com/mgit-at/typescript-flatbuffers-codegen/issues"
   },
-  "description": ""
+  "description": "",
+  "files": [
+    "dist"
+  ]
 }
