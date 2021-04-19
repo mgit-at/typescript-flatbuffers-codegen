@@ -8,7 +8,12 @@ const SIZEOF_INT = 4;
 const FILE_IDENTIFIER_LENGTH = 4;
 const SIZE_PREFIX_LENGTH = 4;
 
-const __proxy = typeof Proxy;
+export const __proxy = typeof Proxy;
+
+export const __object = Object;
+export const __map = Map;
+export const __set = Set;
+export const __array = Array;
 
 export interface Table {
     __bb: ByteBuffer;

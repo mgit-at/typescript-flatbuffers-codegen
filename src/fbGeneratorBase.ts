@@ -46,9 +46,13 @@ export abstract class FbGeneratorBase {
         deepCopy: 'deepCopy',
 
         instance: '__inst',
-        proxyFeature: '__proxy',
 
-        fbLibImport: 'fblib',
+        fbLibImport: '__fblib',
+        fbLibProxyFeature: '__proxy',
+        fbLibObject: '__object',
+        fbLibMap: '__map',
+        fbLibSet: '__set',
+        fbLibArray: '__array',
         fbLibLong: 'Long',
         fbLibByteBuffer: 'ByteBuffer',
         fbLibTable: 'Table',

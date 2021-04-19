@@ -89,10 +89,6 @@ export class FbGenerator extends FbGeneratorBase {
 
     protected generateInt() {
         if (this.options.buildFbParser) {
-            if (this.hasProxy) {
-                this.createFeatureDetection();
-            }
-
             this.createLookup();
         }
 
@@ -160,11 +156,6 @@ export class FbGenerator extends FbGeneratorBase {
         }
 
         return true;
-    }
-
-    private createFeatureDetection() {
-        // Check if es6 proxy is available
-        this.nodes.push(createConstVariable(this.n.proxyFeature, factory.createTypeOfExpression(factory.createIdentifier('Proxy'))));
     }
 
     private createLookup() {
@@ -268,7 +259,7 @@ export class FbGenerator extends FbGeneratorBase {
                     false,
                     undefined,
                     createNew(
-                        'Map',
+                        createNestedPropertyAccess(this.n.fbLibImport, this.n.fbLibMap),
                         [
                             this.convertType(uidField),
                             createTypeReferenceNode(getName(v)),
@@ -464,18 +455,18 @@ export class FbGenerator extends FbGeneratorBase {
 
         if (proxySupportedBody.length && proxySupportedBody.length) {
             body.push(createIf(
-                this.n.proxyFeature,
+                createNestedPropertyAccess(this.n.fbLibImport, this.n.fbLibProxyFeature),
                 proxySupportedBody,
                 proxyNotSupportedBody
             ));
         } else if (proxySupportedBody.length && !proxySupportedBody.length) {
             body.push(createIf(
-                this.n.proxyFeature,
+                createNestedPropertyAccess(this.n.fbLibImport, this.n.fbLibProxyFeature),
                 proxySupportedBody
             ));
         } else if (proxyNotSupportedBody.length && !proxySupportedBody.length) {
             body.push(createIf(
-                createNegation(this.n.proxyFeature),
+                createNegation(createNestedPropertyAccess(this.n.fbLibImport, this.n.fbLibProxyFeature)),
                 proxyNotSupportedBody
             ));
         }
@@ -798,7 +789,7 @@ export class FbGenerator extends FbGeneratorBase {
                         es(createBasicVariableAssignment(
                             this.createInstanceVarNestedPropertyAccess(f.name!),
                             createNew(
-                                'Array',
+                                createNestedPropertyAccess(this.n.fbLibImport, this.n.fbLibArray),
                                 [this.convertType(fieldStripArrayType(f))],
                                 [this.n.lengthVar(f.name!)]
                             )
@@ -835,7 +826,7 @@ export class FbGenerator extends FbGeneratorBase {
                             f.name!,
                             undefined,
                             createNew(
-                                'Array',
+                                createNestedPropertyAccess(this.n.fbLibImport, this.n.fbLibArray),
                                 [this.convertType(fieldStripArrayType(f))],
                                 [f.type!.fixedLength.toString()]
                             ),
@@ -934,7 +925,7 @@ export class FbGenerator extends FbGeneratorBase {
 
     private createFlatbufferProxyAssignment(f: fbR.Field, c: fbR.FbObject): FlatbufferAssignment {
         let makeWriteable = es(createNestedCall(
-            'Object',
+            createNestedPropertyAccess(this.n.fbLibImport, this.n.fbLibObject),
             ['defineProperty', [
                 this.n.instance,
                 factory.createStringLiteral(f.name!),
@@ -951,7 +942,7 @@ export class FbGenerator extends FbGeneratorBase {
                 createIf(
                     this.n.offsetVar(f.name!),
                     es(createNestedCall(
-                        'Object',
+                        createNestedPropertyAccess(this.n.fbLibImport, this.n.fbLibObject),
                         ['defineProperty', [
                             this.n.instance,
                             factory.createStringLiteral(f.name!),
@@ -1409,7 +1400,7 @@ export class FbGenerator extends FbGeneratorBase {
 
                     if (proxy) {
                         deepCopyIfBody.push(createIf(
-                            this.n.proxyFeature,
+                            createNestedPropertyAccess(this.n.fbLibImport, this.n.fbLibProxyFeature),
                             [
                                 es(createBasicVariableAssignment(
                                     this.createInstanceVarNestedPropertyAccess(this.n.proxyVar(f.name!)),
@@ -1434,7 +1425,7 @@ export class FbGenerator extends FbGeneratorBase {
 
                     if (proxy) {
                         deepCopyIfElseBody.push(createIf(
-                            this.n.proxyFeature,
+                            createNestedPropertyAccess(this.n.fbLibImport, this.n.fbLibProxyFeature),
                             es(createBasicVariableAssignment(
                                 this.createInstanceVarNestedPropertyAccess(this.n.proxyVar(f.name!)),
                                 createNestedClassMemberAccess(this.n.proxyVar(f.name!))
@@ -1511,7 +1502,7 @@ export class FbGenerator extends FbGeneratorBase {
                         f.name!,
                         undefined,
                         createNew(
-                            'Array',
+                            createNestedPropertyAccess(this.n.fbLibImport, this.n.fbLibArray),
                             undefined,
                             [createBasicConditional(
                                 access,

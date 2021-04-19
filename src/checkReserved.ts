@@ -68,8 +68,6 @@ const reservedNames = [
 
 const reservedCaseWords = [
     'enum',
-    'Object',
-
 ];
 
 const globalReservedWords = [
